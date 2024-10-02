@@ -29,7 +29,6 @@ schema = {
 };
 ```
 
-
 ## Create the encryption key
 
 so maybe we can just run `mongosh --nodb` and let Mongo() do the work. 

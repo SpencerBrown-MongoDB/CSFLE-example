@@ -6,4 +6,7 @@ appDB = "data";
 localAppCollection = "localQuestions";
 azureAppCollection = "azureQuestions";
 secretsDir = "secrets";
+secretsJS = "secrets.js";
 keyScript = "keyScript.js";
+azureKey = "azureKey.js";
+mongoURI = "mongoURI.js";

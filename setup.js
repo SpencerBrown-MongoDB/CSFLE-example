@@ -1,19 +1,18 @@
 // get the values
 load("values.js"); 
-// get the keys
-load(secretsDir + "/keyScript.js");
-load(secretsDir + "/azureKey.js");
-// Set the connection URI with credentials
-load(secretsDir + "/mongoURI.js");
+// get the Azure keys
+load(secretsDir + azureKey);
+// Get the connection URI with credentials
+load(secretsDir + mongoURI);
 //
 // part 1: set up the local encryption DEKs
 //
 // Create a local master key (obviously this is not secure.. for testing only)
 localCMK = crypto.randomBytes(96).toString('base64')
-// Save it in the secret place
+// Save it in the secret place (overwrites existing file
 fs.writeFileSync(secretsDir + "/" + keyScript, 'localCMK = "' + localCMK + "\";\n");
 // set up the auto-encryption options for local CMK 
-var localAutoEncryptionOpts = {
+var autoEncryptionOpts = {
   keyVaultNamespace: DEKDB + "." + localDEKCollection,
   kmsProviders: {
     local: {
@@ -33,7 +32,7 @@ var azureAutoEncryptionOpts = {
   },
 };
 // connect to the Atlas deployment with an encrypted client using local CMK
-localDBConnection = Mongo(mongoURI, localAutoEncryptionOpts);
+localDBConnection = Mongo(mongoURI, autoEncryptionOpts);
 // connect to the Atlas deployment with an encrypted client using Azure CMK
 azureDBConnection = Mongo(mongoURI, azureAutoEncryptionOpts);
 // Drop the previously created DEK and application DBs

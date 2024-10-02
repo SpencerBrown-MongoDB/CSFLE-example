@@ -2,8 +2,10 @@ load("values.js")
 load("secrets/mongoURI.js");
 load("secrets/azureKey.js");
 load("secrets/keyScript.js");
+
 // Set the application document with a secret answer field that must be encrypted on the server side
 doc = {question: "What is the meaning of life?", answer: "42"};
+
 // Set the schema for automatic encryption of the answer field with local CMK
 localSchema = {
   [appDB+"."+localAppCollection]: {
@@ -19,6 +21,7 @@ localSchema = {
     },
   }
 };
+
 // Set the schema for automatic encryption of the answer field with azure CMK
 azureSchema = {
   [appDB+"."+azureAppCollection]: {
@@ -34,6 +37,7 @@ azureSchema = {
     },
   }
 };
+
 // set up the auto-encryption options for local CMK 
 var localAutoEncryptionOpts = {
   keyVaultNamespace: DEKDB + "." + localDEKCollection,
@@ -43,7 +47,9 @@ var localAutoEncryptionOpts = {
     },
   },
   schemaMap: localSchema,
-};// set up the auto-encryption options for azure CMK
+};
+
+// set up the auto-encryption options for azure CMK
 var azureAutoEncryptionOpts = {
   keyVaultNamespace: DEKDB + "." + azureDEKCollection,
   kmsProviders: {
@@ -55,6 +61,7 @@ var azureAutoEncryptionOpts = {
   },
   schemaMap: azureSchema,
 };
+
 // connect to the Atlas deployment with an encrypted local client
 localDBConnection = Mongo(mongoURI, localAutoEncryptionOpts);
 // Insert a document with an encrypted field

@@ -16,7 +16,7 @@ Create a cluster in MongoDB Atlas. Make sure you have access to it over the netw
 
 ## Set up the connectivity script
 
-Create secrets/mongoURI.js with this content:
+Create atlas/secrets/mongoURI.js with this content:
 
 ```js
 mongoURI = "mongodb+srv://<etc.. the rest of your mongosh connection string with credentials>
@@ -24,7 +24,7 @@ mongoURI = "mongodb+srv://<etc.. the rest of your mongosh connection string with
 
 ## Connect to your cluster
 
-Using the connection string from the previous step, open a terminal window and connect to your cluster with mongosh.
+To make sure you have connectivity: Using the connection string from the previous step, open a terminal window and connect to your cluster with mongosh.
 
 # Setting up CSFLE
 
